@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Floating hearts background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: float 10s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            max-width: 500px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #ff69b4;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+        }
+
+        .bear {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        #noBtn {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        #noBtn:hover {
+            background: #e0e0e0;
+        }
+
+        .celebration {
+            display: none;
+        }
+
+        .celebration.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .final-page {
+            display: none;
+        }
+
+        .final-page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .gifts {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .gift-item {
+            background: linear-gradient(135deg, #fff5f7, #ffe4ec);
+            padding: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid #ffb6c1;
+            min-width: 150px;
+        }
+
+        .gift-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .gift-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .gift-label {
+            color: #ff69b4;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ff69b4;
+            background: none;
+            border: none;
+            padding: 5px 10px;
+        }
+
+        .sunflower {
+            font-size: 100px;
+            margin: 20px 0;
+        }
+
+        .letter-content {
+            text-align: left;
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .letter-content p {
+            margin-bottom: 15px;
+        }
+
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: #ff69b4;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <div class="container">
+        <!-- Initial question page -->
+        <div id="questionPage">
+            <div class="bear">🧸</div>
+            <h1>Will You Be My Valentine?</h1>
+            <div class="buttons">
+                <button id="yesBtn">Yes! 💕</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+
+        <!-- Celebration page -->
+        <div class="celebration" id="celebrationPage">
+            <div style="font-size: 100px;">🎉</div>
+            <h1>I Knew You Would Say Yes!</h1>
+            <p style="font-size: 1.5em; color: #ff69b4; margin: 20px 0;">Yayyy! 💖</p>
+        </div>
+
+        <!-- Final page with gifts -->
+        <div class="final-page" id="finalPage">
+            <h1>Here's Something For You! 🎁</h1>
+            <div class="gifts">
+                <div class="gift-item" onclick="openFlower()">
+                    <div class="gift-icon">🌻</div>
+                    <div class="gift-label">Flower</div>
+                </div>
+                <div class="gift-item" onclick="openLetter()">
+                    <div class="gift-icon">💌</div>
+                    <div class="gift-label">Letter</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flower Modal -->
+    <div class="modal" id="flowerModal">
+        <div class="modal-content" style="text-align: center;">
+            <button class="close-btn" onclick="closeModal('flowerModal')">&times;</button>
+            <h2 style="color: #ff69b4; margin-bottom: 20px;">A Sunflower For You! 🌻</h2>
+            <div class="sunflower">🌻</div>
+            <p style="color: #666; font-size: 1.2em;">
+                Sunflower always turns to the sun,<br>
+                Just like how I always turn to you. 💛
+            </p>
+        </div>
+    </div>
+
+    <!-- Letter Modal -->
+    <div class="modal" id="letterModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('letterModal')">&times;</button>
+            <div class="letter-content">
+                 <p>I may not be the best with words, but I hope this letter shows how much I care.</p>
+                 <p>I just wanted to appreciate you and let you know how much you mean to me.</p>
+                 <p>You're the reason I smile every day and the one who makes everything better just by being there.</p>
+                 <p>With you, I feel like I can face anything that comes my way. You give me strength and happiness like no one else can.</p>                     
+                 <p>Thank you for always being my- eh i mean our, screw that, my amazing girl. I'm so grateful to meet and have you in my life</p>
+                 <div class="signature">With all my heart,<br>tan 💖</div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio element -->
+    <audio id="bgMusic" loop>
+        <source src="w2e-bad.mp3" type="audio/mpeg">
+    </audio>    
+
+    <script>
+        let yesSize = 1;
+        let noClickCount = 0;
+        const noTexts = [
+            "No",
+            "Are you sure?",
+            "Really???",
+            "You don't want me? 🥺",
+            "Please? 🥹",
+            "Think again! 💭",
+            "Last chance! 💔",
+            "Noooo! 😢"
+        ];
+
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const music = document.getElementById('bgMusic');
+
+        // Create floating hearts
+        function createHearts() {
+            const heartBg = document.getElementById('heartBg');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                heartBg.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // No button functionality
+        noBtn.addEventListener('click', function() {
+            noClickCount++;
+            
+            // Increase yes button size
+            yesSize += 0.3;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            
+            // Change no button text
+            if (noClickCount < noTexts.length) {
+                noBtn.textContent = noTexts[noClickCount];
+            }
+            
+            // Make no button smaller and move it
+            noBtn.style.transform = `scale(${1 - noClickCount * 0.1})`;
+            
+            // Move no button to random position (optional fun effect)
+            if (noClickCount > 3) {
+                const randomX = (Math.random() - 0.5) * 50;
+                const randomY = (Math.random() - 0.5) * 50;
+                noBtn.style.position = 'relative';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+            }
+        });
+
+        // Yes button functionality
+        yesBtn.addEventListener('click', function() {
+            // Hide question page
+            document.getElementById('questionPage').style.display = 'none';
+            
+            // Show celebration
+            const celebration = document.getElementById('celebrationPage');
+            celebration.classList.add('active');
+            
+            // Start playing music
+            music.play().catch(e => console.log('Audio play failed:', e));
+            
+            // After 3 seconds, show final page
+            setTimeout(() => {
+                celebration.classList.remove('active');
+                celebration.style.display = 'none';
+                document.getElementById('finalPage').classList.add('active');
+            }, 3000);
+        });
+
+        // Modal functions
+        function openFlower() {
+            document.getElementById('flowerModal').classList.add('active');
+        }
+
+        function openLetter() {
+            document.getElementById('letterModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
