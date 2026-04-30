@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 96" role="img" aria-label="Farm goat">
+  <rect width="112" height="96" fill="none"/>
+  <rect x="24" y="34" width="56" height="33" rx="11" fill="#efe5d4" stroke="#5f4a39" stroke-width="3"/>
+  <ellipse cx="90" cy="46" rx="13" ry="12" fill="#efe5d4" stroke="#5f4a39" stroke-width="3"/>
+  <circle cx="85" cy="44" r="2.6" fill="#2d241d"/>
+  <circle cx="94" cy="44" r="2.6" fill="#2d241d"/>
+  <path d="M77 36l-6-9 8-3z" fill="#d0a663" stroke="#5f4a39" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M99 36l6-9-8-3z" fill="#d0a663" stroke="#5f4a39" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M89 52v10c4 3 8 3 11 0V52z" fill="#d8b187" stroke="#5f4a39" stroke-width="2" stroke-linejoin="round"/>
+  <ellipse cx="47" cy="47" rx="8" ry="6" fill="#d8ccbb"/>
+  <ellipse cx="62" cy="58" rx="7" ry="5" fill="#d8ccbb"/>
+  <line x1="34" y1="67" x2="34" y2="87" stroke="#5f4a39" stroke-width="4" stroke-linecap="round"/>
+  <line x1="47" y1="67" x2="47" y2="87" stroke="#5f4a39" stroke-width="4" stroke-linecap="round"/>
+  <line x1="61" y1="67" x2="61" y2="87" stroke="#5f4a39" stroke-width="4" stroke-linecap="round"/>
+  <line x1="74" y1="67" x2="74" y2="87" stroke="#5f4a39" stroke-width="4" stroke-linecap="round"/>
+  <path d="M24 39c-4-2-6-6-4-11 4 2 6 5 7 9" fill="none" stroke="#5f4a39" stroke-width="3" stroke-linecap="round"/>
+</svg>
